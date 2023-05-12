@@ -10,7 +10,7 @@ class LabRoom1 extends AdventureScene {
     }
     preload(){
         this.load.path = './assets/';
-        this.load.image('black_vial', 'Black_test_tube.kra');
+        this.load.image('black_vial', 'Black test tube.png');
     }
     onEnter() {
         this.imageObject = this.add.image(this.w *0.3, this.w * 0.3, 'black_vial')
