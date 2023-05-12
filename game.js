@@ -11,7 +11,7 @@ class LabRoom1 extends AdventureScene {
             .on('pointerover', () => this.showMessage("A vial full of some blue liquid"))
             .on('pointerdown', () => {
                 this.showMessage("Should keep it for later");
-                this.gainItem('bluevial');
+                this.gainItem('blue vial');
                 this.tweens.add({
                     targets: blueVial,
                     y: `-=${2 * this.s}`,
@@ -55,7 +55,66 @@ class LabRoom2 extends AdventureScene {
         super("labRoom2", "Another Lab Room");
     }
     onEnter(){
+        this.add.text(this.w * 0.1, this.w * 0.1, "🚪 First Lab Room")
+        .setFontSize(this.s * 2)
+        .setInteractive()
+        .on('pointerover', () => {
+            this.showMessage("Door back to the first lab");
+        })
+        .on('pointerdown', () => {
+            this.gotoScene('labRoom1');
+        })
 
+        this.add.text(this.w * 0.35, this.w * 0.05, "⬜ note")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("");
+            })
+
+        let yellowVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 yellow vial")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => this.showMessage("A vial full of some yellow liquid"))
+            .on('pointerdown', () => {
+                this.showMessage("Should keep it for later");
+                this.gainItem('yellow vial');
+                this.tweens.add({
+                    targets: yellowVial,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => yellowVial.destroy()
+                });
+            });
+
+        this.add.text(this.w * 0.5, this.w * 0.5, "🚪 Door to Hallway")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Door to the hallway");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('hallway');
+            })
+
+        let key = this.add.text(this.w * 0.4, this.w * 0.35, "🔑 Key")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Wonder what this key is for...");
+            })
+            .on('pointerdown', () => {
+                this.showMessage("Might need this");
+                this.gainItem('key');
+                this.tweens.add({
+                    targets: key,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0},
+                    duration: 500,
+                    onComplete: () => key.destroy()
+                });
+            });
     }
 }
 
@@ -78,10 +137,10 @@ class Storage extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("");
+                this.showMessage("My superiors are getting restless, they want results. I'll have to do something drastic, even if I lose most of the subjects in the process. I need just one to survive, my whole career rides on this...");
             })
 
-        this.add.text(this.w * 0.4, this.w * 0.4, "🗄️ cabinet")
+        let cabinet = this.add.text(this.w * 0.4, this.w * 0.4, "🗄️ cabinet")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -95,8 +154,34 @@ class Storage extends AdventureScene {
                 if(this.hasItem("key")) {
                     this.loseItem("key");
                     this.showMessage("You found an orange vial");
+                    this.gainItem('orange vial');
+                }else{
+                    this.tweens.add({
+                        targets: cabinet,
+                        x: '+=' + this.s,
+                        repeat: 2,
+                        yoyo: true,
+                        ease: 'Sine.inOut',
+                        duration: 100
+                    });
                 }
             })
+
+        let redVial = this.add.text(this.w * 0.5, this.w * 0.15, "🧪 red vial")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => this.showMessage("A vial full of some red liquid"))
+            .on('pointerdown', () => {
+                this.showMessage("Should keep it for later");
+                this.gainItem('red vial');
+                this.tweens.add({
+                    targets: redVial,
+                    y: `-=${2 * this.s}`,
+                    alpha: { from: 1, to: 0 },
+                    duration: 500,
+                    onComplete: () => redVial.destroy()
+                });
+            });
     }
 }
 
@@ -124,7 +209,7 @@ class Bed extends AdventureScene {
                 });
             });
         
-        let door = this.add.text(this.w * 0.1, this.w * 0.15, "💡 lightswitch")
+        let light = this.add.text(this.w * 0.1, this.w * 0.15, "💡 lightswitch")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -137,6 +222,15 @@ class Bed extends AdventureScene {
             .on('pointerdown', () => {
                 if (free == true) {
                     this.gotoScene('labRoom1');
+                }else{
+                    this.tweens.add({
+                        targets: light,
+                        x: '+=' + this.s,
+                        repeat: 2,
+                        yoyo: true,
+                        ease: 'Sine.inOut',
+                        duration: 100
+                    });
                 }
             })
     }
@@ -164,7 +258,7 @@ class Intro extends Phaser.Scene {
         this.add.text(400,300, "You awake in a cold dark room.").setFontSize(30);
         this.add.text(450,350, "You're strapped to a bed, however the binding around your arm feels weak.").setFontSize(30);
 
-        this.time.delayedCall(2000, () => this.add.text(50, 100, "Click anywhere to begin.").setFontSize(20));
+        this.time.delayedCall(2000, () => this.add.text(50, 100, "Click anywhere to continue.").setFontSize(20));
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('bed'));
