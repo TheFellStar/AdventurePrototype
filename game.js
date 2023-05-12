@@ -8,8 +8,13 @@ class LabRoom1 extends AdventureScene {
     constructor() {
         super("labRoom1", "A Lab Room");
     }
-
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('black_vial', 'Black_test_tube.kra');
+    }
     onEnter() {
+        this.imageObject = this.add.image(this.w *0.3, this.w * 0.3, 'black_vial')
+            .setScale(1)
 
         if(bv == false){
             let blueVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 blue vial")
