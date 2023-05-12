@@ -260,17 +260,34 @@ class Bed extends AdventureScene {
 
 class Hallway extends AdventureScene {
     constructor(){
-        super("hallway", "A strange hallway with switches");
+        super("hallway", "A strange hallway with slots in the walls");
     }
     onEnter(){
+        let outdoor = this.add.text(this.w * 0.5, this.w * 0.5, "🚪 Outside")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("The door is locked, it requires a passcode");
+            })
+            .on('pointerdown', () => {
+                this.tweens.add({
+                    targets: outdoor,
+                    x: '+=' + this.s,
+                    repeat: 2,
+                    yoyo: true,
+                    ease: 'Sine.inOut',
+                    duration: 100
+                });
+            })
+
         this.add.text(this.w * 0.5, this.w * 0.15, "⬜ note")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("");
+                this.showMessage("Subject 32: It finally worked! I don't know why but it actually seems like the darkness has taken a liking to this subject. The formula seemed to have enhanced the bond between them as well. Finally it's time to give myself the power I've been working towards for so long.");
             })
 
-        this.add.text(this.w * 0.1, this.w * 0.1, "🚪 Back to Lab Room")
+        this.add.text(this.w * 0.1, this.w * 0.5, "🚪 Back to Lab Room")
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
@@ -281,7 +298,7 @@ class Hallway extends AdventureScene {
             })
         
         if(gv == false){
-            let greenVial = this.add.text(this.w * 0.3, this.w * 0.1, "🧪 green vial")
+            let greenVial = this.add.text(this.w * 0.3, this.w * 0.05, "🧪 green vial")
                 .setFontSize(this.s * 2)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some green liquid"))
