@@ -10,15 +10,13 @@ class LabRoom1 extends AdventureScene {
     }
     preload(){
         this.load.path = './assets/';
-        this.load.image('black_vial', 'Black test tube.png');
+        this.load.image('blue_vial', 'Blue vial.png');
     }
     onEnter() {
-        this.imageObject = this.add.image(this.w *0.3, this.w * 0.3, 'black_vial')
-            .setScale(1)
 
         if(bv == false){
-            let blueVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 blue vial")
-                .setFontSize(this.s * 2)
+            let blueVial = this.add.image(this.w *0.2, this.w * 0.4, 'blue_vial')
+                .setScale(0.75)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some blue liquid"))
                 .on('pointerdown', () => {
@@ -68,6 +66,10 @@ class LabRoom2 extends AdventureScene {
     constructor() {
         super("labRoom2", "Another Lab Room");
     }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('yellow_vial', 'Yellow vial.png');
+    }
     onEnter(){
         this.add.text(this.w * 0.1, this.w * 0.1, "🚪 First Lab Room")
         .setFontSize(this.s * 2)
@@ -87,8 +89,8 @@ class LabRoom2 extends AdventureScene {
             })
 
         if(yv == false){
-            let yellowVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 yellow vial")
-                .setFontSize(this.s * 2)
+            let yellowVial = this.add.image(this.w * 0.2, this.w * 0.4, 'yellow_vial')
+                .setScale(0.75)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some yellow liquid"))
                 .on('pointerdown', () => {
@@ -142,6 +144,10 @@ class Storage extends AdventureScene {
     constructor() {
         super("storage", "The storage room where they keep all their gear and chemicals");
     }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('red_vial', 'Red vial.png');
+    }
     onEnter() {
         this.add.text(this.w * 0.1, this.w * 0.1, "🚪 Back to Lab Room")
         .setFontSize(this.s * 2)
@@ -192,8 +198,8 @@ class Storage extends AdventureScene {
             })
 
         if(rv == false){
-            let redVial = this.add.text(this.w * 0.5, this.w * 0.15, "🧪 red vial")
-                .setFontSize(this.s * 2)
+            let redVial = this.add.image(this.w * 0.5, this.w * 0.15, 'red_vial')
+                .setScale(0.75)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some red liquid"))
                 .on('pointerdown', () => {
@@ -303,7 +309,7 @@ class Hallway extends AdventureScene {
             })
         
         if(gv == false){
-            let greenVial = this.add.text(this.w * 0.3, this.w * 0.05, "🧪 green vial")
+            let greenVial = this.add.text(this.w * 0.3, this.w * 0.05, "🧪")
                 .setFontSize(this.s * 2)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some green liquid"))
