@@ -340,14 +340,32 @@ class Outside extends AdventureScene {
 
 class Logo extends Phaser.Scene {
     constructor() {
-        super('start')
+        super('logo')
+    }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('Crest_of_Flames', 'Crest_of_Flames.png');
     }
     create(){
-        this.add.text(50,100, "Click anywhere to begin.").setFontSize(20);
-        this.input.on('pointerdown', () => {
+        this.cameras.main.setBackgroundColor("#ffffff");
+
+        this.imageObject = this.add.image(
+            960, //x
+            540, //y
+            'Crest_of_Flames', //imagename
+        )
+        this.imageObject.setScale(1);
+        this.tweens.add({
+            targets: this.imageObject,
+            alpha: {from: 0, to: 1},
+            duration: 2500,
+            ease: 'Linear',
+            yoyo: true
+        });
+        this.time.delayedCall(5000, () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('intro'));
-        });
+        })
     }
 }
 
@@ -360,7 +378,7 @@ class Intro extends Phaser.Scene {
         this.add.text(400,300, "You awake in a cold dark room.").setFontSize(30);
         this.add.text(450,350, "You're strapped to a bed, however the binding around your arm feels weak.").setFontSize(30);
 
-        this.time.delayedCall(2000, () => this.add.text(50, 100, "Click anywhere to continue.").setFontSize(20));
+        this.time.delayedCall(2000, () => this.add.text(50, 50, "Click anywhere to continue.").setFontSize(20));
         this.input.on('pointerdown', () => {
             this.cameras.main.fade(1000, 0,0,0);
             this.time.delayedCall(1000, () => this.scene.start('bed'));
