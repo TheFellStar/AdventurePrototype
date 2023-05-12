@@ -12,7 +12,7 @@ Experience requirements:
 - **2+ interactive objects in most scenes**: every scene has at least a note, vial, and door to interact with.
 - **Many objects have `pointerover` messages**: every item has a pointer over effect, such as the 5 notes.
 - **Many objects have `pointerdown` effects**: doors to go to next rooms and vials to pick them up.
-- **Some objects are themselves animated**: objects such as the lightswitch or the cabinet will shake when clicked without correct conditions.
+- **Some objects are themselves animated**: objects such as the lightswitch or the cabinet will shake when clicked without correct conditions. Items also have a disappearing animation when picked up.
 
 Asset sources:
 - (For each image/audio/video asset used, describe how it was created. What tool did you use to create it? Was it based on another work? If so, how did you change it, and where can we learn more about the original work for comparison? Use [Markdown link syntax](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax#links).)
