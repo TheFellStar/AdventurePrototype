@@ -263,6 +263,13 @@ class Hallway extends AdventureScene {
         super("hallway", "A strange hallway with switches");
     }
     onEnter(){
+        this.add.text(this.w * 0.5, this.w * 0.15, "⬜ note")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("");
+            })
+
         this.add.text(this.w * 0.1, this.w * 0.1, "🚪 Back to Lab Room")
             .setFontSize(this.s * 2)
             .setInteractive()
@@ -303,7 +310,7 @@ class Outside extends AdventureScene {
     }
 }
 
-class Start extends Phaser.Scene {
+class Logo extends Phaser.Scene {
     constructor() {
         super('start')
     }
@@ -352,7 +359,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Start, Intro, Bed, LabRoom1, Storage, LabRoom2, Hallway, Outside, Outro],
+    scene: [Logo, Intro, Bed, LabRoom1, Storage, LabRoom2, Hallway, Outside, Outro],
     title: "Adventure Game",
 });
 
