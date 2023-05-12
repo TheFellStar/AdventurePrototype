@@ -1,3 +1,9 @@
+let bv = false;
+let rv = false;
+let yv = false;
+let ck = false;
+let gv = false;
+
 class LabRoom1 extends AdventureScene {
     constructor() {
         super("labRoom1", "A Lab Room");
@@ -5,21 +11,24 @@ class LabRoom1 extends AdventureScene {
 
     onEnter() {
 
-        let blueVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 blue vial")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("A vial full of some blue liquid"))
-            .on('pointerdown', () => {
-                this.showMessage("Should keep it for later");
-                this.gainItem('blue vial');
-                this.tweens.add({
-                    targets: blueVial,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => blueVial.destroy()
+        if(bv == false){
+            let blueVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 blue vial")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => this.showMessage("A vial full of some blue liquid"))
+                .on('pointerdown', () => {
+                    this.showMessage("Should keep it for later");
+                    this.gainItem('blue vial');
+                    this.tweens.add({
+                        targets: blueVial,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => blueVial.destroy()
+                    });
+                    bv = true;
                 });
-            });
+        }
 
         this.add.text(this.w * 0.5, this.w * 0.1, "🚪 storage")
             .setFontSize(this.s * 2)
@@ -45,7 +54,7 @@ class LabRoom1 extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("Test subject 32: Subject seems to take to the fusion wonderfully, no adverse side effects so far. Will continue to monitor.");
+                this.showMessage("Test subject 32: Subject seems to take to the fusion wonderfully, no adverse side effects so far. Will continue to monitor. Hopefully this is the one.");
             })
     }
 }
@@ -69,24 +78,27 @@ class LabRoom2 extends AdventureScene {
             .setFontSize(this.s * 2)
             .setInteractive()
             .on('pointerover', () => {
-                this.showMessage("");
+                this.showMessage("I don't understand what's wrong, every formula we try fails. The darkness just doesn't fuse with any of them, almost as if it doesn't want to. The more I study it the more I think it might be thinking... but that's impossible, how can a shadow have a conscience.");
             })
 
-        let yellowVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 yellow vial")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("A vial full of some yellow liquid"))
-            .on('pointerdown', () => {
-                this.showMessage("Should keep it for later");
-                this.gainItem('yellow vial');
-                this.tweens.add({
-                    targets: yellowVial,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => yellowVial.destroy()
+        if(yv == false){
+            let yellowVial = this.add.text(this.w * 0.2, this.w * 0.4, "🧪 yellow vial")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => this.showMessage("A vial full of some yellow liquid"))
+                .on('pointerdown', () => {
+                    this.showMessage("Should keep it for later");
+                    this.gainItem('yellow vial');
+                    this.tweens.add({
+                        targets: yellowVial,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => yellowVial.destroy()
+                    });
+                    yv = true;
                 });
-            });
+        }
 
         this.add.text(this.w * 0.5, this.w * 0.5, "🚪 Door to Hallway")
             .setFontSize(this.s * 2)
@@ -98,23 +110,26 @@ class LabRoom2 extends AdventureScene {
                 this.gotoScene('hallway');
             })
 
-        let key = this.add.text(this.w * 0.4, this.w * 0.35, "🔑 Key")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => {
-                this.showMessage("Wonder what this key is for...");
-            })
-            .on('pointerdown', () => {
-                this.showMessage("Might need this");
-                this.gainItem('key');
-                this.tweens.add({
-                    targets: key,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0},
-                    duration: 500,
-                    onComplete: () => key.destroy()
+        if(ck == false){    
+            let key = this.add.text(this.w * 0.4, this.w * 0.35, "🔑 Key")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("Wonder what this key is for...");
+                })
+                .on('pointerdown', () => {
+                    this.showMessage("Might need this");
+                    this.gainItem('key');
+                    this.tweens.add({
+                        targets: key,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0},
+                        duration: 500,
+                        onComplete: () => key.destroy()
+                    });
+                    ck = true;
                 });
-            });
+        }
     }
 }
 
@@ -147,7 +162,11 @@ class Storage extends AdventureScene {
                 if(this.hasItem("key")){
                     this.showMessage("You have the key to the cabinet");
                 }else{
-                    this.showMessage("It's locked. Wonder what could be in here");
+                    if(ck == false){
+                        this.showMessage("It's locked. Wonder what could be in here");
+                    }else{
+                        this.showMessage("You already got what you needed from here");
+                    }
                 }
             })
             .on('pointerdown', () => {
@@ -167,21 +186,24 @@ class Storage extends AdventureScene {
                 }
             })
 
-        let redVial = this.add.text(this.w * 0.5, this.w * 0.15, "🧪 red vial")
-            .setFontSize(this.s * 2)
-            .setInteractive()
-            .on('pointerover', () => this.showMessage("A vial full of some red liquid"))
-            .on('pointerdown', () => {
-                this.showMessage("Should keep it for later");
-                this.gainItem('red vial');
-                this.tweens.add({
-                    targets: redVial,
-                    y: `-=${2 * this.s}`,
-                    alpha: { from: 1, to: 0 },
-                    duration: 500,
-                    onComplete: () => redVial.destroy()
+        if(rv == false){
+            let redVial = this.add.text(this.w * 0.5, this.w * 0.15, "🧪 red vial")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => this.showMessage("A vial full of some red liquid"))
+                .on('pointerdown', () => {
+                    this.showMessage("Should keep it for later");
+                    this.gainItem('red vial');
+                    this.tweens.add({
+                        targets: redVial,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => redVial.destroy()
+                    });
+                    rv = true;
                 });
-            });
+        }
     }
 }
 
@@ -236,6 +258,51 @@ class Bed extends AdventureScene {
     }
 }
 
+class Hallway extends AdventureScene {
+    constructor(){
+        super("hallway", "A strange hallway with switches");
+    }
+    onEnter(){
+        this.add.text(this.w * 0.1, this.w * 0.1, "🚪 Back to Lab Room")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Door back to the lab");
+            })
+            .on('pointerdown', () => {
+                this.gotoScene('labRoom2');
+            })
+        
+        if(gv == false){
+            let greenVial = this.add.text(this.w * 0.3, this.w * 0.1, "🧪 green vial")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => this.showMessage("A vial full of some green liquid"))
+                .on('pointerdown', () => {
+                    this.showMessage("Should keep it for later");
+                    this.gainItem('green vial');
+                    this.tweens.add({
+                        targets: greenVial,
+                        y: `-=${2 * this.s}`,
+                        alpha: { from: 1, to: 0 },
+                        duration: 500,
+                        onComplete: () => greenVial.destroy()
+                    });
+                    gv = true;
+                });
+        }
+    }
+}
+
+class Outside extends AdventureScene {
+    constructor(){
+        super("outside", "You finally made it out!");
+    }
+    onEnter(){
+
+    }
+}
+
 class Start extends Phaser.Scene {
     constructor() {
         super('start')
@@ -285,7 +352,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Start, Intro, Bed, LabRoom1, Storage, LabRoom2, Outro],
+    scene: [Start, Intro, Bed, LabRoom1, Storage, LabRoom2, Hallway, Outside, Outro],
     title: "Adventure Game",
 });
 
