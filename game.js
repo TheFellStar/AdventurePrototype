@@ -610,7 +610,14 @@ class Outside extends AdventureScene {
         this.load.image('path', 'path.png');
     }
     onEnter(){
-        this.add.image(960, 540, 'path')
+        this.add.text(this.w * 0.5, this.w * 0.15, "⬜ note")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("The doctor is obsessed with finally obtaining dominion over the darkness, of controlling it's power. This isn't what we were contracted to do, I have to stop it. I've trapped him in the fusion chamber before he could add the vials, time to lock him in and go get help. Hopefully subject 32 will be alright.");
+            })
+
+        this.add.image(600, 540, 'path')
             .setScale(1)
             .setInteractive()
             .on('pointerover', () => {
@@ -676,7 +683,12 @@ class Outro extends Phaser.Scene {
         super('outro');
     }
     create() {
-        this.add.text(50, 50, "Click anywhere to restart.").setFontSize(20);
+        this.cameras.main.fadeIn(1000, 0, 0, 0)
+        this.add.text(400, 300, "As you walk away you feel a growing cold...").setFontSize(30);
+        this.add.text(450, 350, "You hear something whispering in your ear, but there's nothing there.").setFontSize(30);
+        this.add.text(500, 400, "Your vision starts to grow dark.......").setFont(30);
+
+        this.time.delayedCall(4000, () => this.add.text(50, 50, "Click anywhere to restart.").setFontSize(20))
         this.input.on('pointerdown', () => this.scene.start('intro'));
     }
 }
