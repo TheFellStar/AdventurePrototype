@@ -605,8 +605,21 @@ class Outside extends AdventureScene {
     constructor(){
         super("outside", "You finally made it out!");
     }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('path', 'path.png');
+    }
     onEnter(){
-
+        this.add.image(960, 540, 'path')
+            .setScale(1)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Time to finally leave this place");
+            })
+            .on('pointerdown', () => {
+                this.cameras.main.fade(1000, 0,0,0);
+                this.time.delayedCall(1000, () => this.scene.start('outro'));
+            })
     }
 }
 
