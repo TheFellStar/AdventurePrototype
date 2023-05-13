@@ -3,6 +3,11 @@ let rv = false;
 let yv = false;
 let ck = false;
 let gv = false;
+let rs = false;
+let bs = false;
+let os = false;
+let gs = false;
+let ys = false;
 
 class LabRoom1 extends AdventureScene {
     constructor() {
@@ -16,7 +21,7 @@ class LabRoom1 extends AdventureScene {
 
         if(bv == false){
             let blueVial = this.add.image(this.w *0.2, this.w * 0.4, 'blue_vial')
-                .setScale(0.75)
+                .setScale(0.5)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some blue liquid"))
                 .on('pointerdown', () => {
@@ -90,7 +95,7 @@ class LabRoom2 extends AdventureScene {
 
         if(yv == false){
             let yellowVial = this.add.image(this.w * 0.2, this.w * 0.4, 'yellow_vial')
-                .setScale(0.75)
+                .setScale(0.5)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some yellow liquid"))
                 .on('pointerdown', () => {
@@ -199,7 +204,7 @@ class Storage extends AdventureScene {
 
         if(rv == false){
             let redVial = this.add.image(this.w * 0.5, this.w * 0.15, 'red_vial')
-                .setScale(0.75)
+                .setScale(0.5)
                 .setInteractive()
                 .on('pointerover', () => this.showMessage("A vial full of some red liquid"))
                 .on('pointerdown', () => {
@@ -273,7 +278,155 @@ class Hallway extends AdventureScene {
     constructor(){
         super("hallway", "A strange hallway with slots in the walls");
     }
+    preload(){
+        this.load.path = './assets/';
+        this.load.image('orange_vial', 'Orange vial.png');
+    }
     onEnter(){
+        this.graphics = this.add.graphics();
+        this.graphics.fillStyle(0xffffff, 1); //color, opacity
+        let button = this.graphics.fillCircle(80,216,10); //x, y, radius
+
+        if(rs == false){
+            let redSlot = this.add.text(this.w * 0.05, this.w * 0.2, "Red Slot")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("A red slot, looks like a vial could fit here...");
+                })
+                .on('pointerdown', () => {
+                    if(this.hasItem("red vial")) {
+                        this.loseItem("red vial");
+                        this.showMessage("The vial fit perfectly!");
+                        this.tweens.add({
+                            targets: redSlot,
+                            y: `-=${2 * this.s}`,
+                            alpha: { from: 1, to: 0 },
+                            duration: 500,
+                            onComplete: () => redSlot.destroy()
+                        });
+                        this.add.image(this.w * 0.07, this.w * 0.2, 'red_vial')
+                            .setScale(0.6);
+                        rs = true;
+                    }
+                })
+        }else{
+            this.add.image(this.w * 0.07, this.w * 0.2, 'red_vial')
+                .setScale(0.6);
+        }
+
+        if(bs == false){
+            let blueSlot = this.add.text(this.w * 0.15, this.w * 0.25, "Blue Slot")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("A blue slot, looks like a vial could fit here...");
+                })
+                .on('pointerdown', () => {
+                    if(this.hasItem("blue vial")) {
+                        this.loseItem("blue vial");
+                        this.showMessage("The vial fit perfectly!");
+                        this.tweens.add({
+                            targets: blueSlot,
+                            y: `-=${2 * this.s}`,
+                            alpha: { from: 1, to: 0 },
+                            duration: 500,
+                            onComplete: () => blueSlot.destroy()
+                        });
+                        this.add.image(this.w * 0.17, this.w * 0.25, 'blue_vial')
+                            .setScale(0.6);
+                        bs = true;
+                    }
+                })
+        }else{
+            this.add.image(this.w * 0.17, this.w * 0.25, 'blue_vial')
+                .setScale(0.6);
+        }
+
+        if(ys == false){
+            let yellowSlot = this.add.text(this.w * 0.26, this.w * 0.2, "Yellow Slot")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("A yellow slot, looks like a vial could fit here...");
+                })
+                .on('pointerdown', () => {
+                    if(this.hasItem("yellow vial")) {
+                        this.loseItem("yellow vial");
+                        this.showMessage("The vial fit perfectly!");
+                        this.tweens.add({
+                            targets: yellowSlot,
+                            y: `-=${2 * this.s}`,
+                            alpha: { from: 1, to: 0 },
+                            duration: 500,
+                            onComplete: () => yellowSlot.destroy()
+                        });
+                        this.add.image(this.w * 0.28, this.w * 0.2, 'yellow_vial')
+                            .setScale(0.6);
+                        ys = true;
+                    }
+                })
+        }else{
+            this.add.image(this.w * 0.28, this.w * 0.2, 'yellow_vial')
+                .setScale(0.6);
+        }
+
+        if(os == false){
+            let orangeSlot = this.add.text(this.w * 0.39, this.w * 0.25, "Orange Slot")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("A orange slot, looks like a vial could fit here...");
+                })
+                .on('pointerdown', () => {
+                    if(this.hasItem("orange vial")) {
+                        this.loseItem("orange vial");
+                        this.showMessage("The vial fit perfectly!");
+                        this.tweens.add({
+                            targets: orangeSlot,
+                            y: `-=${2 * this.s}`,
+                            alpha: { from: 1, to: 0 },
+                            duration: 500,
+                            onComplete: () => orangeSlot.destroy()
+                        });
+                        this.add.image(this.w * 0.41, this.w * 0.25, 'orange_vial')
+                            .setScale(0.6);
+                        os = true;
+                    }
+                })
+        }else{
+            this.add.image(this.w * 0.41, this.w * 0.25, 'orange_vial')
+                .setScale(0.6);
+        }
+
+        if(gs == false){
+            let greenSlot = this.add.text(this.w * 0.52, this.w * 0.2, "Green Slot")
+                .setFontSize(this.s * 2)
+                .setInteractive()
+                .on('pointerover', () => {
+                    this.showMessage("A green slot, looks like a vial could fit here...");
+                })
+                .on('pointerdown', () => {
+                    if(this.hasItem("green vial")) {
+                        this.loseItem("green vial");
+                        this.showMessage("The vial fit perfectly!");
+                        this.tweens.add({
+                            targets: greenSlot,
+                            y: `-=${2 * this.s}`,
+                            alpha: { from: 1, to: 0 },
+                            duration: 500,
+                            onComplete: () => greenSlot.destroy()
+                        });
+                        this.add.text(this.w * 0.54, this.w * 0.2, "🧪")
+                            .setFontSize(this.s * 2);
+                        gs = true;
+                    }
+                })
+        }else{
+            this.add.text(this.w * 0.54, this.w * 0.2, "🧪")
+                .setFontSize(this.s * 2);
+        }
+
         let outdoor = this.add.text(this.w * 0.5, this.w * 0.5, "🚪 Outside")
             .setFontSize(this.s * 2)
             .setInteractive()
