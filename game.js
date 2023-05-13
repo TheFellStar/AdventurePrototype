@@ -281,12 +281,10 @@ class Hallway extends AdventureScene {
     preload(){
         this.load.path = './assets/';
         this.load.image('orange_vial', 'Orange vial.png');
+        this.load.image('black_vial', 'Black test tube.png');
     }
     onEnter(){
-        this.graphics = this.add.graphics();
-        this.graphics.fillStyle(0xffffff, 1); //color, opacity
-        let button = this.graphics.fillCircle(80,216,10); //x, y, radius
-
+        let redSlot2
         if(rs == false){
             let redSlot = this.add.text(this.w * 0.05, this.w * 0.2, "Red Slot")
                 .setFontSize(this.s * 2)
@@ -305,16 +303,17 @@ class Hallway extends AdventureScene {
                             duration: 500,
                             onComplete: () => redSlot.destroy()
                         });
-                        this.add.image(this.w * 0.07, this.w * 0.2, 'red_vial')
+                        redSlot2 = this.add.image(this.w * 0.07, this.w * 0.2, 'red_vial')
                             .setScale(0.6);
                         rs = true;
                     }
                 })
         }else{
-            this.add.image(this.w * 0.07, this.w * 0.2, 'red_vial')
+            redSlot2 = this.add.image(this.w * 0.07, this.w * 0.2, 'red_vial')
                 .setScale(0.6);
         }
 
+        let blueSlot2
         if(bs == false){
             let blueSlot = this.add.text(this.w * 0.15, this.w * 0.25, "Blue Slot")
                 .setFontSize(this.s * 2)
@@ -333,16 +332,17 @@ class Hallway extends AdventureScene {
                             duration: 500,
                             onComplete: () => blueSlot.destroy()
                         });
-                        this.add.image(this.w * 0.17, this.w * 0.25, 'blue_vial')
+                        blueSlot2 = this.add.image(this.w * 0.17, this.w * 0.25, 'blue_vial')
                             .setScale(0.6);
                         bs = true;
                     }
                 })
         }else{
-            this.add.image(this.w * 0.17, this.w * 0.25, 'blue_vial')
+            blueSlot2 = this.add.image(this.w * 0.17, this.w * 0.25, 'blue_vial')
                 .setScale(0.6);
         }
 
+        let yellowSlot2
         if(ys == false){
             let yellowSlot = this.add.text(this.w * 0.26, this.w * 0.2, "Yellow Slot")
                 .setFontSize(this.s * 2)
@@ -361,16 +361,17 @@ class Hallway extends AdventureScene {
                             duration: 500,
                             onComplete: () => yellowSlot.destroy()
                         });
-                        this.add.image(this.w * 0.28, this.w * 0.2, 'yellow_vial')
+                        yellowSlot2 = this.add.image(this.w * 0.28, this.w * 0.2, 'yellow_vial')
                             .setScale(0.6);
                         ys = true;
                     }
                 })
         }else{
-            this.add.image(this.w * 0.28, this.w * 0.2, 'yellow_vial')
+            yellowSlot2 = this.add.image(this.w * 0.28, this.w * 0.2, 'yellow_vial')
                 .setScale(0.6);
         }
 
+        let orangeSlot2
         if(os == false){
             let orangeSlot = this.add.text(this.w * 0.39, this.w * 0.25, "Orange Slot")
                 .setFontSize(this.s * 2)
@@ -389,16 +390,17 @@ class Hallway extends AdventureScene {
                             duration: 500,
                             onComplete: () => orangeSlot.destroy()
                         });
-                        this.add.image(this.w * 0.41, this.w * 0.25, 'orange_vial')
+                        orangeSlot2 = this.add.image(this.w * 0.41, this.w * 0.25, 'orange_vial')
                             .setScale(0.6);
                         os = true;
                     }
                 })
         }else{
-            this.add.image(this.w * 0.41, this.w * 0.25, 'orange_vial')
+            orangeSlot2 = this.add.image(this.w * 0.41, this.w * 0.25, 'orange_vial')
                 .setScale(0.6);
         }
 
+        let greenSlot2
         if(gs == false){
             let greenSlot = this.add.text(this.w * 0.52, this.w * 0.2, "Green Slot")
                 .setFontSize(this.s * 2)
@@ -417,13 +419,13 @@ class Hallway extends AdventureScene {
                             duration: 500,
                             onComplete: () => greenSlot.destroy()
                         });
-                        this.add.text(this.w * 0.54, this.w * 0.2, "🧪")
+                        greenSlot2 = this.add.text(this.w * 0.54, this.w * 0.2, "🧪")
                             .setFontSize(this.s * 2);
                         gs = true;
                     }
                 })
         }else{
-            this.add.text(this.w * 0.54, this.w * 0.2, "🧪")
+            greenSlot2 = this.add.text(this.w * 0.54, this.w * 0.2, "🧪")
                 .setFontSize(this.s * 2);
         }
 
@@ -479,6 +481,123 @@ class Hallway extends AdventureScene {
                     gv = true;
                 });
         }
+
+        let button = this.add.circle(1200,600,30,0xff0000, 1)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Wonder what this button does...")
+            })
+            .on('pointerdown', () => {
+                if(rs == true && bs == true && os == true && gs == true && ys == true){
+                    this.tweens.add({
+                        targets: yellowSlot2,
+                        x: '+=' + this.s,
+                        repeat: 2,
+                        yoyo: true,
+                        ease: 'Sine.inOut',
+                        duration: 500
+                    });
+                    this.time.delayedCall(100, () => {
+                        this.tweens.add({
+                            targets: blueSlot2,
+                            x: '+=' + this.s,
+                            repeat: 2,
+                            yoyo: true,
+                            ease: 'Sine.inOut',
+                            duration: 400
+                        });
+                        this.tweens.add({
+                            targets: greenSlot2,
+                            x: '+=' + this.s,
+                            repeat: 2,
+                            yoyo: true,
+                            ease: 'Sine.inOut',
+                            duration: 400
+                        });
+                    })
+                    this.time.delayedCall(300, () => {
+                        this.tweens.add({
+                            targets: redSlot2,
+                            x: '+=' + this.s,
+                            repeat: 2,
+                            yoyo: true,
+                            ease: 'Sine.inOut',
+                            duration: 200
+                        });
+
+                        this.tweens.add({
+                            targets: orangeSlot2,
+                            x: '+=' + this.s,
+                            repeat: 2,
+                            yoyo: true,
+                            ease: 'Sine.inOut',
+                            duration: 200
+                        });
+                    })
+                    this.time.delayedCall(3000, () => {
+                        yellowSlot2.destroy();
+                        this.add.image(this.w * 0.28, this.w * 0.2, 'black_vial')
+                            .setScale(0.6);
+                        redSlot2.destroy();
+                        this.add.image(this.w * 0.07, this.w * 0.2, 'black_vial')
+                            .setScale(0.6);
+                        blueSlot2.destroy();
+                        this.add.image(this.w * 0.17, this.w * 0.25, 'black_vial')
+                            .setScale(0.6);
+                        orangeSlot2.destroy();
+                        this.add.image(this.w * 0.41, this.w * 0.25, 'black_vial')
+                            .setScale(0.6);
+                        greenSlot2.destroy();
+                        this.add.image(this.w * 0.54, this.w * 0.2, 'black_vial')
+                            .setScale(0.6);
+                        this.cameras.main.fade(1000, 0,0,0);
+                        this.time.delayedCall(1000, () => this.scene.start('hallway2'));
+                    });
+                }else{
+                    this.tweens.add({
+                        targets: button,
+                        x: '+=' + this.s,
+                        repeat: 2,
+                        yoyo: true,
+                        ease: 'Sine.inOut',
+                        duration: 100
+                    });
+                }
+            })
+    }
+}
+
+class Hallway2 extends AdventureScene{
+    constructor(){
+        super("hallway2", "You feel dizzy")
+    }
+    onEnter(){
+        this.showMessage("The liquids in the vials shot up and were replaced by darkness. The darkness grew unstable and exploded.... It strangely left you alone.")
+
+        let outdoor = this.add.text(this.w * 0.5, this.w * 0.5, "🚪 Outside")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("The blast broke the controls, the door is open now");
+            })
+            .on('pointerdown', () => {
+                this.cameras.main.fade(1000, 0,0,0);
+                this.time.delayedCall(1000, () => this.scene.start('outside'));
+            })
+
+        this.add.text(this.w * 0.1, this.w * 0.5, "🚪 Blocked door")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Some of the roof collapsed and is blocking the way back...");
+            })
+
+        this.add.text(this.w * 0.5, this.w * 0.15, "⬜ note")
+            .setFontSize(this.s * 2)
+            .setInteractive()
+            .on('pointerover', () => {
+                this.showMessage("Subject 32: It finally worked! I don't know why but it actually seems like the darkness has taken a liking to this subject. The formula seemed to have enhanced the bond between them as well. Finally it's time to give myself the power I've been working towards for so long.");
+            })
     }
 }
 
@@ -544,8 +663,7 @@ class Outro extends Phaser.Scene {
         super('outro');
     }
     create() {
-        this.add.text(50, 50, "That's all!").setFontSize(50);
-        this.add.text(50, 100, "Click anywhere to restart.").setFontSize(20);
+        this.add.text(50, 50, "Click anywhere to restart.").setFontSize(20);
         this.input.on('pointerdown', () => this.scene.start('intro'));
     }
 }
@@ -558,7 +676,7 @@ const game = new Phaser.Game({
         width: 1920,
         height: 1080
     },
-    scene: [Logo, Intro, Bed, LabRoom1, Storage, LabRoom2, Hallway, Outside, Outro],
+    scene: [Logo, Intro, Bed, LabRoom1, Storage, LabRoom2, Hallway, Hallway2, Outside, Outro],
     title: "Adventure Game",
 });
 
